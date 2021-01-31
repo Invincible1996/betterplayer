@@ -1,6 +1,6 @@
 class Constants {
   static const String bugBuckBunnyVideoUrl =
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+      "http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4";
   static const String forBiggerBlazesUrl =
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
   static const String fileTestVideoUrl = "testvideo.mp4";

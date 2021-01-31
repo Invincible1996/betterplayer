@@ -1,14 +1,9 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
-
-// Flutter imports:
-import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:better_player/better_player.dart';
-
 import 'package:better_player/src/controls/better_player_cupertino_controls.dart';
 import 'package:better_player/src/controls/better_player_material_controls.dart';
 import 'package:better_player/src/core/better_player_controller.dart';
@@ -16,11 +11,16 @@ import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:better_player/src/subtitles/better_player_subtitles_configuration.dart';
 import 'package:better_player/src/subtitles/better_player_subtitles_drawer.dart';
 import 'package:better_player/src/video_player/video_player.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 
 class BetterPlayerWithControls extends StatefulWidget {
   final BetterPlayerController controller;
+  final Function onScreenOretationChange;
 
-  const BetterPlayerWithControls({Key key, this.controller}) : super(key: key);
+  const BetterPlayerWithControls(
+      {Key key, this.controller, this.onScreenOretationChange})
+      : super(key: key);
 
   @override
   _BetterPlayerWithControlsState createState() =>
@@ -161,11 +161,13 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
     if (controlsConfiguration.showControls) {
       BetterPlayerTheme playerTheme = controlsConfiguration.playerTheme;
       if (playerTheme == null) {
-        if (Platform.isAndroid) {
-          playerTheme = BetterPlayerTheme.material;
-        } else {
-          playerTheme = BetterPlayerTheme.cupertino;
-        }
+        // if (Platform.isAndroid) {
+        //   playerTheme = BetterPlayerTheme.material;
+        // } else {
+        //   playerTheme = BetterPlayerTheme.cupertino;
+        // }
+        /// Android ios 统一风格
+        playerTheme = BetterPlayerTheme.material;
       }
 
       if (controlsConfiguration.customControlsBuilder != null &&
@@ -186,6 +188,7 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
     return BetterPlayerMaterialControls(
       onControlsVisibilityChanged: onControlsVisibilityChanged,
       controlsConfiguration: controlsConfiguration,
+      onScreenOretationChange: widget.onScreenOretationChange,
     );
   }
 

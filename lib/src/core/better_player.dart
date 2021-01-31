@@ -23,8 +23,11 @@ typedef BetterPlayerRoutePageBuilder = Widget Function(
     BetterPlayerControllerProvider controllerProvider);
 
 class BetterPlayer extends StatefulWidget {
-  const BetterPlayer({Key key, @required this.controller})
-      : assert(
+  const BetterPlayer({
+    Key key,
+    @required this.controller,
+    this.onScreenOretationChange,
+  })  : assert(
             controller != null, 'You must provide a better player controller'),
         super(key: key);
 
@@ -53,6 +56,7 @@ class BetterPlayer extends StatefulWidget {
       );
 
   final BetterPlayerController controller;
+  final Function onScreenOretationChange;
 
   @override
   BetterPlayerState createState() {
@@ -278,6 +282,7 @@ class BetterPlayerState extends State<BetterPlayer>
           widget.controller.onPlayerVisibilityChanged(info.visibleFraction),
       child: BetterPlayerWithControls(
         controller: widget.controller,
+        onScreenOretationChange: widget.onScreenOretationChange,
       ),
     );
   }

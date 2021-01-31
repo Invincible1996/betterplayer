@@ -22,11 +22,13 @@ class BetterPlayerMaterialControls extends StatefulWidget {
 
   ///Controls config
   final BetterPlayerControlsConfiguration controlsConfiguration;
+  final Function onScreenOretationChange;
 
   const BetterPlayerMaterialControls({
     Key key,
     @required this.onControlsVisibilityChanged,
     @required this.controlsConfiguration,
+    this.onScreenOretationChange,
   })  : assert(onControlsVisibilityChanged != null),
         assert(controlsConfiguration != null),
         super(key: key);
@@ -186,10 +188,17 @@ class _BetterPlayerMaterialControlsState
           duration: _controlsConfiguration.controlsHideTime,
           onEnd: _onPlayerHide,
           child: Container(
+            width: MediaQuery.of(context).size.width,
             height: _controlsConfiguration.controlBarHeight,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
+                  onPressed: () {
+                    widget.onScreenOretationChange?.call();
+                  },
+                ),
                 _buildMoreButton(),
               ],
             ),
