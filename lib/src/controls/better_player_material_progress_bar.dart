@@ -68,7 +68,10 @@ class _VideoProgressBarState
       final double relative = tapPos.dx / box.size.width;
       if (relative > 0) {
         final Duration position = controller.value.duration * relative;
-        betterPlayerController.seekTo(position);
+        if (betterPlayerController != null &&
+            betterPlayerController.isVideoInitialized()) {
+          betterPlayerController.seekTo(position);
+        }
       }
     }
 
