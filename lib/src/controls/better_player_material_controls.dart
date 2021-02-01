@@ -273,6 +273,9 @@ class _BetterPlayerMaterialControlsState
   }
 
   Widget _buildBottomBar() {
+    /// 如果当前视频播放完成 则不显示进度条
+    final bool isFinished = isVideoFinished(_latestValue);
+    if (isFinished) return SizedBox.shrink();
     if (!betterPlayerController.controlsEnabled) {
       return const SizedBox();
     }
