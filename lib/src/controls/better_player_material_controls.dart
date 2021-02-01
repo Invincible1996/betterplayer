@@ -10,7 +10,6 @@ import 'package:better_player/src/controls/better_player_progress_colors.dart';
 import 'package:better_player/src/core/better_player_controller.dart';
 import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:better_player/src/video_player/video_player.dart';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -22,13 +21,13 @@ class BetterPlayerMaterialControls extends StatefulWidget {
 
   ///Controls config
   final BetterPlayerControlsConfiguration controlsConfiguration;
-  final Function onScreenOretationChange;
+  final Function(bool isFullScreen) onScreenOrientationChange;
 
   const BetterPlayerMaterialControls({
     Key key,
     @required this.onControlsVisibilityChanged,
     @required this.controlsConfiguration,
-    this.onScreenOretationChange,
+    this.onScreenOrientationChange,
   })  : assert(onControlsVisibilityChanged != null),
         assert(controlsConfiguration != null),
         super(key: key);
@@ -194,9 +193,13 @@ class _BetterPlayerMaterialControlsState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
+                  icon: Icon(
+                    Icons.arrow_back_ios_outlined,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
-                    widget.onScreenOretationChange?.call();
+                    Navigator.of(context).pop();
+                    widget.onScreenOrientationChange?.call(false);
                   },
                 ),
                 _buildMoreButton(),

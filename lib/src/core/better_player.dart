@@ -4,12 +4,10 @@ import 'dart:async';
 // Project imports:
 import 'package:better_player/better_player.dart';
 import 'package:better_player/src/core/better_player_with_controls.dart';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-
 // Package imports:
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:wakelock/wakelock.dart';
@@ -26,7 +24,7 @@ class BetterPlayer extends StatefulWidget {
   const BetterPlayer({
     Key key,
     @required this.controller,
-    this.onScreenOretationChange,
+    this.onScreenOrientationChange,
   })  : assert(
             controller != null, 'You must provide a better player controller'),
         super(key: key);
@@ -56,7 +54,7 @@ class BetterPlayer extends StatefulWidget {
       );
 
   final BetterPlayerController controller;
-  final Function onScreenOretationChange;
+  final Function(bool isFullScreen) onScreenOrientationChange;
 
   @override
   BetterPlayerState createState() {
@@ -150,10 +148,12 @@ class BetterPlayerState extends State<BetterPlayer>
       _isFullScreen = true;
       controller
           .postEvent(BetterPlayerEvent(BetterPlayerEventType.openFullscreen));
+      widget.onScreenOrientationChange?.call(_isFullScreen);
       await _pushFullScreenWidget(context);
     } else if (_isFullScreen && !controller.cancelFullScreenDismiss) {
       Navigator.of(context, rootNavigator: true).pop();
       _isFullScreen = false;
+      widget.onScreenOrientationChange?.call(_isFullScreen);
       controller
           .postEvent(BetterPlayerEvent(BetterPlayerEventType.hideFullscreen));
     }
@@ -282,7 +282,7 @@ class BetterPlayerState extends State<BetterPlayer>
           widget.controller.onPlayerVisibilityChanged(info.visibleFraction),
       child: BetterPlayerWithControls(
         controller: widget.controller,
-        onScreenOretationChange: widget.onScreenOretationChange,
+        onScreenOrientationChange: widget.onScreenOrientationChange,
       ),
     );
   }

@@ -46,9 +46,9 @@ class _NormalPlayerPageState extends State<NormalPlayerPage> {
           AspectRatio(
             aspectRatio: 16 / 9,
             child: BetterPlayer(
-                onScreenOretationChange: (){
-                   debugPrint('50---normal_player_page-----');
-                   Navigator.of(context).pop();
+                onScreenOrientationChange: (value) {
+                  debugPrint('50---normal_player_page-----$value');
+                  Navigator.of(context).pop();
                 },
                 controller: _betterPlayerController),
           ),
