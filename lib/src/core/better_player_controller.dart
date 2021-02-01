@@ -10,7 +10,6 @@ import 'package:better_player/src/configuration/better_player_event_type.dart';
 import 'package:better_player/src/configuration/better_player_translations.dart';
 import 'package:better_player/src/configuration/better_player_video_format.dart';
 import 'package:better_player/src/core/better_player_controller_provider.dart';
-
 // Flutter imports:
 import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:better_player/src/hls/better_player_hls_track.dart';
@@ -20,7 +19,6 @@ import 'package:better_player/src/subtitles/better_player_subtitles_factory.dart
 import 'package:better_player/src/video_player/video_player.dart';
 import 'package:better_player/src/video_player/video_player_platform_interface.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:path_provider/path_provider.dart';
 
@@ -404,6 +402,7 @@ class BetterPlayerController extends ChangeNotifier {
   }
 
   Future<void> seekTo(Duration moment) async {
+    if (videoPlayerController == null) return;
     await videoPlayerController.seekTo(moment);
 
     _postEvent(BetterPlayerEvent(BetterPlayerEventType.seekTo,
